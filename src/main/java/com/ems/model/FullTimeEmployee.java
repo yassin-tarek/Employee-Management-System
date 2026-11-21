@@ -1,3 +1,4 @@
+package com.ems.model;
 public class FullTimeEmployee extends Employee {
 
     private double basicSalary;
@@ -7,7 +8,7 @@ public class FullTimeEmployee extends Employee {
                             String department, String position,
                             double basicSalary, double bonus) {
 
-        super(id, name, age, department, position);
+        super(id, name, age, department, position, 0.0);
 
         this.basicSalary = basicSalary;
         this.bonus = bonus;
@@ -15,6 +16,8 @@ public class FullTimeEmployee extends Employee {
 
     @Override
     public double calculateSalary() {
-        return basicSalary + bonus;
+        double salary = basicSalary + bonus;
+        setSalary(salary);
+        return salary;
     }
 }
