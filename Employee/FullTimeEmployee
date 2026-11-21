@@ -1,1 +1,19 @@
+public class FullTimeEmployee extends Employee{
+double salary;
+double bonus;
+ public FullTimeEmployee(int id, String name, int age, String department, String position,
+                           double basicSalary, double bonus) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.department = department;
+        this.position = position;
+        this.salary = basicSalary;
+        this.bonus = bonus;
+    }
 
+    @Override
+    public double calculateSalary() {
+        return salary + bonus;
+    }
+}
