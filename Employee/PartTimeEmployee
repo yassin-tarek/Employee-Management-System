@@ -1,14 +1,14 @@
 public class PartTimeEmployee extends Employee {
-    double hourlyRate;
-    double hoursWorked;
 
-    public PartTimeEmployee(int id, String name, int age, String department, String position,
-                           double hourlyRate, double hoursWorked) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.department = department;
-        this.position = position;
+    private double hourlyRate;
+    private double hoursWorked;
+
+    public PartTimeEmployee(int id, String name, int age,
+                            String department, String position,
+                            double hourlyRate, double hoursWorked) {
+
+        super(id, name, age, department, position);
+
         this.hourlyRate = hourlyRate;
         this.hoursWorked = hoursWorked;
     }
