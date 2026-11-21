@@ -1,9 +1,0 @@
-abstract class Employee {
-    int id;
-    String name;
-    int age;
-    String department;
-    String position;
-
-    public abstract double calculateSalary();
-}
