@@ -12,6 +12,17 @@ public class EmployeeManager {
         return true;
     }
 
+public Employee searchEmployee(int id) {//SEARCH BY ID
+
+    for (Employee e : employees) {
+        if (e.getId() == id) {
+            return e;
+        }
+    }
+
+    return null;
+}
+
     public boolean deleteEmployee(int id) {//NOT WRITTEN DELETE BY WHAT I WROTE ID AS IT IS UNIQUE FOR EACH EMPLOYEE
 
         Employee e = searchEmployee(id);
