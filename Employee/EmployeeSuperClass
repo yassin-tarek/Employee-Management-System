@@ -1,9 +1,24 @@
 import java.io.Serializable; //SERIAZABLE IS IN UML PHOTO SO IT CAN BE USED TO SAVE AND LOAD FILE AND ITS INTERFACE 
-
 public abstract class Employee implements Serializable {
+
     private int id;
     private String name;
     private int age;
+    private String department;
+    private String position;
+
+    public Employee(int id, String name, int age,
+                    String department, String position) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.department = department;
+        this.position = position;
+    }
 
     public abstract double calculateSalary();
+
+    public int getId() {
+        return id;
+    }
 }
