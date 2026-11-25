@@ -13,7 +13,8 @@ public class EmployeeManager {
     private final FileHandler fileHandler = new FileHandler();
 
     public EmployeeManager() {
-        List<Employee> loaded = fileHandler.loadEmployees();   // should return an empty list if no file yet
+        List<Employee> loaded = fileHandler.loadEmployees();
+
         if (loaded != null) {
             employees = new ArrayList<>(loaded);
         }
@@ -23,10 +24,14 @@ public class EmployeeManager {
 
     private int indexOf(int id) {
         for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getId() == id) {
+
+            Employee e = employees.get(i);
+
+            if (e != null && e.getId() == id) {
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -41,97 +46,156 @@ public class EmployeeManager {
 
     public int getNextId() {
         int max = 0;
+
         for (Employee e : employees) {
-            if (e.getId() > max) {
+            if (e != null && e.getId() > max) {
                 max = e.getId();
             }
         }
+
         return max + 1;
     }
 
     public List<Employee> getAllEmployees() {
-        return new ArrayList<>(employees);   // copy, so the GUI can't change the real list
+        return new ArrayList<>(employees);
     }
 
     // ---------- add ----------
 
     public boolean addEmployee(Employee e) {
-        if (e == null || searchEmployee(e.getId()) != null) {   // null or duplicate ID
+
+        if (e == null || searchEmployee(e.getId()) != null) {
             return false;
         }
+
         employees.add(e);
+
         if (!save()) {
-            employees.remove(e);    // undo, so list and file match
+            employees.remove(e);
             return false;
         }
+
         return true;
     }
 
     // ---------- search / filter ----------
 
-    public Employee searchEmployee(int id) {   // by ID
+    public Employee searchEmployee(int id) {
         int i = indexOf(id);
+
         return (i == -1) ? null : employees.get(i);
     }
 
-    public List<Employee> searchEmployees(String key) {   // by ID or name
+    public List<Employee> searchEmployees(String key) {
+
         List<Employee> result = new ArrayList<>();
+
         if (key == null) {
             return result;
         }
+
         String k = key.trim().toLowerCase();
+
         for (Employee e : employees) {
-            if (String.valueOf(e.getId()).equals(k) || e.getName().toLowerCase().contains(k)) {
+
+            // Skip null employee objects
+            if (e == null) {
+                continue;
+            }
+
+            // Search by ID
+            if (String.valueOf(e.getId()).equals(k)) {
+                result.add(e);
+                continue;
+            }
+
+            // Search by name safely
+            String name = e.getName();
+
+            if (name != null && name.toLowerCase().contains(k)) {
                 result.add(e);
             }
         }
+
         return result;
     }
 
-    public List<Employee> filterByDepartment(String dept) {   // case-insensitive
+    public List<Employee> filterByDepartment(String dept) {
+
         List<Employee> result = new ArrayList<>();
+
+        if (dept == null) {
+            return result;
+        }
+
         for (Employee e : employees) {
-            if (e.getDepartment().equalsIgnoreCase(dept)) {
+
+            // Skip null employee objects
+            if (e == null) {
+                continue;
+            }
+
+            // Check department safely
+            String employeeDepartment = e.getDepartment();
+
+            if (employeeDepartment != null
+                    && dept.equalsIgnoreCase(employeeDepartment)) {
+
                 result.add(e);
             }
         }
+
         return result;
     }
 
     // ---------- update ----------
 
     public Employee updateEmployee(int id, Employee updated) {
+
         if (updated == null) {
             return null;
         }
+
         int index = indexOf(id);
+
         if (index == -1) {
-            return null;                                   // not found
-        }
-        if (updated.getId() != id && searchEmployee(updated.getId()) != null) {
-            return null;                                   // new ID belongs to someone else
-        }
-        Employee old = employees.get(index);
-        employees.set(index, updated);                     // same slot, so the table order stays
-        if (!save()) {
-            employees.set(index, old);                     // undo
             return null;
         }
+
+        if (updated.getId() != id
+                && searchEmployee(updated.getId()) != null) {
+            return null;
+        }
+
+        Employee old = employees.get(index);
+
+        employees.set(index, updated);
+
+        if (!save()) {
+            employees.set(index, old);
+            return null;
+        }
+
         return updated;
     }
 
     // ---------- delete ----------
 
     public boolean deleteEmployee(int id) {
+
         int index = indexOf(id);
+
         if (index == -1) {
             return false;
         }
+
         Employee removed = employees.remove(index);
+
         if (!save()) {
-            employees.add(index, removed);                 // undo
+            employees.add(index, removed);
             return false;
         }
+
         return true;
     }
 }
