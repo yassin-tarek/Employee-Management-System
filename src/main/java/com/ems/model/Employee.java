@@ -11,7 +11,7 @@ public abstract class Employee implements Serializable {
     private int age;
     private String department;
     private String position;
-
+    private String imagePath;
     // Constructor
     public Employee(int id, String name, int age,
                     String department, String position) {
@@ -113,5 +113,12 @@ public abstract class Employee implements Serializable {
     public void setPosition(String position) {
         validatePosition(position);
         this.position = position.trim();
+    }
+    public String getImagePath() {
+    return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
