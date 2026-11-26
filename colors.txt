@@ -1,0 +1,47 @@
+/* =========================
+   PRIMARY PURPLE PALETTE
+   ========================= */
+--purple-900: #7201FF;
+--purple-800: #8B2EFF;
+--purple-700: #A65DFE;
+--purple-600: #BE8BFF;
+--purple-400: #DAB9FF;
+--purple-100: #F2E8FF;
+
+/* =========================
+   BACKGROUND COLORS
+   ========================= */
+--background: #F5F3FF;
+--surface: #FFFFFF;
+--surface-secondary: #F8FAFC;
+--input-background: #F1F5F9;
+
+/* =========================
+   TEXT COLORS
+   ========================= */
+--text-primary: #1E1B4B;
+--text-secondary: #475569;
+--text-muted: #94A3B8;
+
+/* =========================
+   BORDER COLORS
+   ========================= */
+--border: #E2E8F0;
+--border-purple: #DDD6FE;
+
+/* =========================
+   STATUS COLORS
+   ========================= */
+--success: #16A34A;
+--warning: #D97706;
+--danger: #DC2626;
+--info: #2563EB;
+
+/* =========================
+   SIDEBAR & BUTTON COLORS
+   ========================= */
+--sidebar: #1E1B4B;
+--primary-button: #7201FF;
+--button-hover: #8B2EFF;
+--selected-menu: #EDE9FE;
+--hover-background: #F3E8FF;

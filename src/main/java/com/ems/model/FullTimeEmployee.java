@@ -1,19 +1,35 @@
 package com.ems.model;
 
+import java.time.LocalDate;
+
 public class FullTimeEmployee extends Employee {
 
     private static final long serialVersionUID = 1L;
-    private double basicSalary;
+
+    private double basicSalary;   // monthly salary
     private double bonus;
 
     public FullTimeEmployee(int id, String name, int age,
                             String department, String position,
+                            String email, String phone, LocalDate hireDate,
                             double basicSalary, double bonus) {
 
-        super(id, name, age, department, position);
+        super(id, name, age, department, position, email, phone, hireDate);
 
-        setBasicSalary(basicSalary);
-        setBonus(bonus);
+        validateAmount(basicSalary, "Basic salary");
+        validateAmount(bonus, "Bonus");
+
+        this.basicSalary = basicSalary;
+        this.bonus = bonus;
+    }
+
+    // Convenience constructor: the Add Employee form has no bonus field
+    public FullTimeEmployee(int id, String name, int age,
+                            String department, String position,
+                            String email, String phone, LocalDate hireDate,
+                            double basicSalary) {
+
+        this(id, name, age, department, position, email, phone, hireDate, basicSalary, 0);
     }
 
     // Calculate salary without modifying the object
@@ -22,7 +38,6 @@ public class FullTimeEmployee extends Employee {
         return basicSalary + bonus;
     }
 
-    // Employee type
     @Override
     public EmployeeType getEmployeeType() {
         return EmployeeType.FULL_TIME;
@@ -41,26 +56,19 @@ public class FullTimeEmployee extends Employee {
     // Setters with validation
 
     public void setBasicSalary(double basicSalary) {
-
-        if (basicSalary < 0 || Double.isNaN(basicSalary)
-                || Double.isInfinite(basicSalary)) {
-
-            throw new IllegalArgumentException(
-                    "Basic salary must be a valid non-negative number.");
-        }
-
+        validateAmount(basicSalary, "Basic salary");
         this.basicSalary = basicSalary;
     }
 
     public void setBonus(double bonus) {
-
-        if (bonus < 0 || Double.isNaN(bonus)
-                || Double.isInfinite(bonus)) {
-
-            throw new IllegalArgumentException(
-                    "Bonus must be a valid non-negative number.");
-        }
-
+        validateAmount(bonus, "Bonus");
         this.bonus = bonus;
+    }
+
+    private static void validateAmount(double value, String label) {
+        if (value < 0 || Double.isNaN(value) || Double.isInfinite(value)) {
+            throw new IllegalArgumentException(
+                    label + " must be a valid non-negative number.");
+        }
     }
 }

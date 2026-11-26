@@ -1,0 +1,265 @@
+/* =====================================================================
+   style.css - shared styles for the whole app.
+   JavaFX CSS does not support var(--x), so the palette is defined as
+   "looked-up colors" on .root and used as -purple-900, -surface, ...
+   ===================================================================== */
+
+.root {
+    /* Primary purple palette */
+    -purple-900: #7201FF;
+    -purple-800: #8B2EFF;
+    -purple-700: #A65DFE;
+    -purple-600: #BE8BFF;
+    -purple-400: #DAB9FF;
+    -purple-100: #F2E8FF;
+
+    /* Backgrounds */
+    -background: #F5F3FF;
+    -surface: #FFFFFF;
+    -surface-secondary: #F8FAFC;
+    -input-background: #F1F5F9;
+
+    /* Text */
+    -text-primary: #1E1B4B;
+    -text-secondary: #475569;
+    -text-muted: #94A3B8;
+
+    /* Borders */
+    -border: #E2E8F0;
+    -border-purple: #DDD6FE;
+
+    /* Status */
+    -success: #16A34A;
+    -warning: #D97706;
+    -danger: #DC2626;
+    -info: #2563EB;
+
+    /* Sidebar & buttons */
+    -sidebar: #1E1B4B;
+    -primary-button: #7201FF;
+    -button-hover: #8B2EFF;
+    -selected-menu: #EDE9FE;
+    -hover-background: #F3E8FF;
+
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: -background;
+}
+
+/* ---------- logo badge (used in sidebar and login) ---------- */
+
+.logo-badge {
+    -fx-background-color: -purple-900;
+    -fx-background-radius: 12;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+    -fx-min-width: 44;
+    -fx-min-height: 44;
+    -fx-pref-width: 44;
+    -fx-pref-height: 44;
+}
+
+/* ---------- main window (shell) ---------- */
+
+.sidebar {
+    -fx-background-color: -sidebar;
+    -fx-padding: 24 16 24 16;
+    -fx-min-width: 250;
+    -fx-pref-width: 250;
+    -fx-max-width: 250;
+}
+
+.sidebar-brand {
+    -fx-padding: 0 8 24 8;
+}
+
+.brand-name {
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.brand-caption {
+    -fx-text-fill: -purple-400;
+    -fx-font-size: 12px;
+}
+
+.sidebar-section {
+    -fx-text-fill: -purple-600;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 12 6 12;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-text-fill: -purple-400;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-padding: 12 16 12 16;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: white;
+}
+
+.nav-button.active {
+    -fx-background-color: -selected-menu;
+    -fx-text-fill: -purple-900;
+    -fx-font-weight: bold;
+}
+
+.logout-button {
+    -fx-background-color: rgba(220, 38, 38, 0.12);
+    -fx-background-radius: 10;
+    -fx-text-fill: #FCA5A5;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 12 16 12 16;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: -danger;
+    -fx-text-fill: white;
+}
+
+.header {
+    -fx-background-color: -surface;
+    -fx-padding: 0 32 0 32;
+    -fx-min-height: 72;
+    -fx-pref-height: 72;
+    -fx-border-color: transparent transparent -border transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.avatar {
+    -fx-background-color: -purple-900;
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+}
+
+.user-name {
+    -fx-text-fill: -text-primary;
+    -fx-font-weight: bold;
+}
+
+.user-role {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12px;
+}
+
+.content-area {
+    -fx-background-color: -background;
+}
+
+.placeholder-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.placeholder-text {
+    -fx-text-fill: -text-muted;
+}
+
+/* ---------- shared components ---------- */
+
+.page-card {
+    -fx-background-color: -surface;
+    -fx-background-radius: 16;
+    -fx-border-color: -border;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(30, 27, 75, 0.06), 14, 0, 0, 3);
+}
+
+.field-label {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.error-label {
+    -fx-text-fill: -danger;
+    -fx-font-size: 13px;
+}
+
+.text-field,
+.password-field {
+    -fx-background-color: -input-background;
+    -fx-background-radius: 10;
+    -fx-border-color: -border;
+    -fx-border-radius: 10;
+    -fx-padding: 11 14 11 14;
+    -fx-text-fill: -text-primary;
+    -fx-prompt-text-fill: -text-muted;
+}
+
+.text-field:focused,
+.password-field:focused {
+    -fx-background-color: -surface;
+    -fx-border-color: -purple-900;
+    -fx-background-insets: 0;
+}
+
+.primary-button {
+    -fx-background-color: -primary-button;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24 12 24;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: -button-hover;
+}
+
+.primary-button:disabled {
+    -fx-opacity: 0.5;
+}
+
+.secondary-button {
+    -fx-background-color: -surface;
+    -fx-background-radius: 10;
+    -fx-border-color: -border-purple;
+    -fx-border-radius: 10;
+    -fx-text-fill: -purple-900;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24 12 24;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: -hover-background;
+}
+
+.danger-button {
+    -fx-background-color: -danger;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24 12 24;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-opacity: 0.88;
+}

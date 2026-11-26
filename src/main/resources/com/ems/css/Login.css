@@ -1,0 +1,76 @@
+/* Login.css - styles that only the Login page uses */
+
+.login-root {
+    -fx-background-color: -surface;
+}
+
+/* Left brand panel */
+.brand-panel {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, -purple-900, -purple-700);
+    -fx-padding: 64;
+}
+
+.brand-panel .logo-badge {
+    -fx-background-color: white;
+    -fx-text-fill: -purple-900;
+    -fx-background-radius: 18;
+    -fx-font-size: 18px;
+    -fx-min-width: 68;
+    -fx-min-height: 68;
+    -fx-pref-width: 68;
+    -fx-pref-height: 68;
+}
+
+.brand-title {
+    -fx-text-fill: white;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+
+.brand-subtitle {
+    -fx-text-fill: -purple-100;
+    -fx-font-size: 16px;
+}
+
+/* Right side */
+.form-side {
+    -fx-background-color: -background;
+    -fx-padding: 40;
+}
+
+.login-card {
+    -fx-background-color: -surface;
+    -fx-background-radius: 20;
+    -fx-border-color: -border-purple;
+    -fx-border-radius: 20;
+    -fx-padding: 40;
+    -fx-effect: dropshadow(gaussian, rgba(114, 1, 255, 0.10), 30, 0, 0, 8);
+}
+
+.login-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.login-subtitle {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 14px;
+}
+
+.credentials-note {
+    -fx-background-color: -purple-100;
+    -fx-background-radius: 12;
+    -fx-padding: 12 16 12 16;
+}
+
+.note-title {
+    -fx-text-fill: -purple-900;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.note-text {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 13px;
+}

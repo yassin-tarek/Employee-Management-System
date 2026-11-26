@@ -3,9 +3,11 @@ package com.ems.manager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.ems.io.FileHandler;
 import com.ems.model.Employee;
+import com.ems.model.EmployeeType;
 
 public class EmployeeManager {
 
@@ -16,7 +18,11 @@ public class EmployeeManager {
         List<Employee> loaded = fileHandler.loadEmployees();
 
         if (loaded != null) {
-            employees = new ArrayList<>(loaded);
+            for (Employee e : loaded) {
+                if (e != null) {                 // drop null entries once, here
+                    employees.add(e);
+                }
+            }
         }
     }
 
@@ -24,14 +30,10 @@ public class EmployeeManager {
 
     private int indexOf(int id) {
         for (int i = 0; i < employees.size(); i++) {
-
-            Employee e = employees.get(i);
-
-            if (e != null && e.getId() == id) {
+            if (employees.get(i).getId() == id) {
                 return i;
             }
         }
-
         return -1;
     }
 
@@ -40,6 +42,7 @@ public class EmployeeManager {
             fileHandler.saveEmployees(employees);
             return true;
         } catch (IOException ex) {
+            System.err.println("Could not save employees: " + ex.getMessage());
             return false;
         }
     }
@@ -48,7 +51,7 @@ public class EmployeeManager {
         int max = 0;
 
         for (Employee e : employees) {
-            if (e != null && e.getId() > max) {
+            if (e.getId() > max) {
                 max = e.getId();
             }
         }
@@ -60,11 +63,27 @@ public class EmployeeManager {
         return new ArrayList<>(employees);
     }
 
+    // True if another employee (not excludeId) already uses this email.
+    // Call it from the form BEFORE add/update so you can show a clear message.
+    public boolean isEmailTaken(String email, int excludeId) {
+        if (email == null) {
+            return false;
+        }
+        String wanted = email.trim();
+        for (Employee e : employees) {
+            if (e.getId() != excludeId && e.getEmail() != null
+                    && e.getEmail().equalsIgnoreCase(wanted)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // ---------- add ----------
 
     public boolean addEmployee(Employee e) {
 
-        if (e == null || searchEmployee(e.getId()) != null) {
+        if (e == null || indexOf(e.getId()) != -1 || isEmailTaken(e.getEmail(), e.getId())) {
             return false;
         }
 
@@ -94,14 +113,9 @@ public class EmployeeManager {
             return result;
         }
 
-        String k = key.trim().toLowerCase();
+        String k = key.trim().toLowerCase(Locale.ROOT);
 
         for (Employee e : employees) {
-
-            // Skip null employee objects
-            if (e == null) {
-                continue;
-            }
 
             // Search by ID
             if (String.valueOf(e.getId()).equals(k)) {
@@ -109,10 +123,10 @@ public class EmployeeManager {
                 continue;
             }
 
-            // Search by name safely
+            // Search by name (an empty key matches everyone)
             String name = e.getName();
 
-            if (name != null && name.toLowerCase().contains(k)) {
+            if (name != null && name.toLowerCase(Locale.ROOT).contains(k)) {
                 result.add(e);
             }
         }
@@ -129,18 +143,20 @@ public class EmployeeManager {
         }
 
         for (Employee e : employees) {
-
-            // Skip null employee objects
-            if (e == null) {
-                continue;
+            if (dept.trim().equalsIgnoreCase(e.getDepartment())) {
+                result.add(e);
             }
+        }
 
-            // Check department safely
-            String employeeDepartment = e.getDepartment();
+        return result;
+    }
 
-            if (employeeDepartment != null
-                    && dept.equalsIgnoreCase(employeeDepartment)) {
+    public List<Employee> filterByType(EmployeeType type) {
 
+        List<Employee> result = new ArrayList<>();
+
+        for (Employee e : employees) {
+            if (e.getEmployeeType() == type) {
                 result.add(e);
             }
         }
@@ -150,20 +166,18 @@ public class EmployeeManager {
 
     // ---------- update ----------
 
+    // Replaces the employee that has this ID. The ID can't change (other data refers to it).
+    // Employee has no setter for ID and the type may change (full-time <-> part-time),
+    // so the edit form builds a new object with the SAME ID and passes it here.
     public Employee updateEmployee(int id, Employee updated) {
 
-        if (updated == null) {
+        if (updated == null || updated.getId() != id) {
             return null;
         }
 
         int index = indexOf(id);
 
-        if (index == -1) {
-            return null;
-        }
-
-        if (updated.getId() != id
-                && searchEmployee(updated.getId()) != null) {
+        if (index == -1 || isEmailTaken(updated.getEmail(), id)) {
             return null;
         }
 
@@ -196,6 +210,67 @@ public class EmployeeManager {
             return false;
         }
 
+        fileHandler.deleteProfileImage(removed.getImagePath());   // no orphan pictures
         return true;
+    }
+
+    // ---------- departments ----------
+
+    public int countInDepartment(String dept) {
+        return filterByDepartment(dept).size();
+    }
+
+    // Call after DepartmentManager.renameDepartment() succeeded.
+    public boolean renameDepartment(String oldName, String newName) {
+
+        if (oldName == null || newName == null || newName.trim().isEmpty()) {
+            return false;
+        }
+
+        List<Employee> affected = filterByDepartment(oldName);
+
+        if (affected.isEmpty()) {
+            return true;
+        }
+
+        List<String> previous = new ArrayList<>();
+
+        for (Employee e : affected) {
+            previous.add(e.getDepartment());
+            e.setDepartment(newName);
+        }
+
+        if (!save()) {
+            for (int i = 0; i < affected.size(); i++) {
+                affected.get(i).setDepartment(previous.get(i));   // undo
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    // ---------- statistics (Dashboard) ----------
+
+    public int getEmployeeCount() {
+        return employees.size();
+    }
+
+    public int countByType(EmployeeType type) {
+        return filterByType(type).size();
+    }
+
+    public double getTotalPayroll() {
+        double total = 0;
+
+        for (Employee e : employees) {
+            total += e.calculateSalary();
+        }
+
+        return total;
+    }
+
+    public double getAverageSalary() {
+        return employees.isEmpty() ? 0 : getTotalPayroll() / employees.size();
     }
 }

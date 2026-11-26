@@ -15,9 +15,15 @@ public class DepartmentManager {
     public DepartmentManager() {
         List<Department> loaded = fileHandler.loadDepartments();   // empty list if no file yet
         if (loaded != null) {
-            departments = new ArrayList<>(loaded);
+            for (Department d : loaded) {
+                if (d != null) {
+                    departments.add(d);
+                }
+            }
         }
-        if (departments.isEmpty()) {
+        // Defaults only on the very first launch. If the user deleted every department
+        // on purpose, the saved (empty) file exists and the defaults must not come back.
+        if (departments.isEmpty() && !fileHandler.departmentsFileExists()) {
             addDefaults();
         }
     }
@@ -38,6 +44,7 @@ public class DepartmentManager {
             fileHandler.saveDepartments(departments);
             return true;
         } catch (IOException ex) {
+            System.err.println("Could not save departments: " + ex.getMessage());
             return false;
         }
     }
@@ -51,9 +58,11 @@ public class DepartmentManager {
         return -1;
     }
 
-    private boolean nameExists(String name) {
+    // True if another department (not excludeId) already uses this name, ignoring case
+    private boolean nameExists(String name, int excludeId) {
+        String wanted = name.trim();
         for (Department d : departments) {
-            if (d.getName().equalsIgnoreCase(name.trim())) {
+            if (d.getId() != excludeId && d.getName().equalsIgnoreCase(wanted)) {
                 return true;
             }
         }
@@ -73,10 +82,10 @@ public class DepartmentManager {
     // ---------- add ----------
 
     public boolean addDepartment(Department d) {
-        if (d == null || d.getName() == null || d.getName().trim().isEmpty()) {
-            return false;                                  // missing name
+        if (d == null) {
+            return false;
         }
-        if (indexOf(d.getId()) != -1 || nameExists(d.getName())) {
+        if (indexOf(d.getId()) != -1 || nameExists(d.getName(), -1)) {
             return false;                                  // duplicate ID or name (ignoring case)
         }
         departments.add(d);
@@ -87,8 +96,41 @@ public class DepartmentManager {
         return true;
     }
 
+    // Convenience for the Departments page: the manager picks the ID
+    public boolean addDepartment(String name) {
+        try {
+            return addDepartment(new Department(getNextId(), name));
+        } catch (IllegalArgumentException ex) {
+            return false;                                  // empty name
+        }
+    }
+
+    // ---------- rename ----------
+
+    // Department is immutable, so renaming replaces it with a new object that has the same ID.
+    // Employees store the department NAME, so after a successful rename the caller must also run
+    // EmployeeManager.renameDepartment(oldName, newName).
+    public boolean renameDepartment(int id, String newName) {
+        int index = indexOf(id);
+        if (index == -1 || newName == null || newName.trim().isEmpty()) {
+            return false;
+        }
+        if (nameExists(newName, id)) {
+            return false;
+        }
+        Department old = departments.get(index);
+        departments.set(index, new Department(id, newName));
+        if (!save()) {
+            departments.set(index, old);                   // undo
+            return false;
+        }
+        return true;
+    }
+
     // ---------- delete ----------
 
+    // The caller should first check EmployeeManager.countInDepartment(name) == 0,
+    // otherwise employees are left with a department that no longer exists.
     public boolean deleteDepartment(int id) {
         int index = indexOf(id);
         if (index == -1) {
@@ -106,6 +148,23 @@ public class DepartmentManager {
 
     public List<Department> getAllDepartments() {
         return new ArrayList<>(departments);               // copy, so the GUI can't change the real list
+    }
+
+    public Department getById(int id) {
+        int i = indexOf(id);
+        return (i == -1) ? null : departments.get(i);
+    }
+
+    public Department getByName(String name) {
+        if (name == null) {
+            return null;
+        }
+        for (Department d : departments) {
+            if (d.getName().equalsIgnoreCase(name.trim())) {
+                return d;
+            }
+        }
+        return null;
     }
 
     public String[] getNames() {

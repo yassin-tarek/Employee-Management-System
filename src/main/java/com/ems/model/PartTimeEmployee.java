@@ -1,19 +1,26 @@
 package com.ems.model;
 
+import java.time.LocalDate;
+
 public class PartTimeEmployee extends Employee {
 
     private static final long serialVersionUID = 1L;
+
     private double hourlyRate;
     private double hoursWorked;
 
     public PartTimeEmployee(int id, String name, int age,
                             String department, String position,
+                            String email, String phone, LocalDate hireDate,
                             double hourlyRate, double hoursWorked) {
 
-        super(id, name, age, department, position);
+        super(id, name, age, department, position, email, phone, hireDate);
 
-        setHourlyRate(hourlyRate);
-        setHoursWorked(hoursWorked);
+        validateAmount(hourlyRate, "Hourly rate");
+        validateAmount(hoursWorked, "Hours worked");
+
+        this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
     }
 
     // Calculate salary without modifying the object
@@ -22,7 +29,6 @@ public class PartTimeEmployee extends Employee {
         return hourlyRate * hoursWorked;
     }
 
-    // Employee type
     @Override
     public EmployeeType getEmployeeType() {
         return EmployeeType.PART_TIME;
@@ -41,26 +47,19 @@ public class PartTimeEmployee extends Employee {
     // Setters with validation
 
     public void setHourlyRate(double hourlyRate) {
-
-        if (hourlyRate < 0 || Double.isNaN(hourlyRate)
-                || Double.isInfinite(hourlyRate)) {
-
-            throw new IllegalArgumentException(
-                    "Hourly rate must be a valid non-negative number.");
-        }
-
+        validateAmount(hourlyRate, "Hourly rate");
         this.hourlyRate = hourlyRate;
     }
 
     public void setHoursWorked(double hoursWorked) {
-
-        if (hoursWorked < 0 || Double.isNaN(hoursWorked)
-                || Double.isInfinite(hoursWorked)) {
-
-            throw new IllegalArgumentException(
-                    "Hours worked must be a valid non-negative number.");
-        }
-
+        validateAmount(hoursWorked, "Hours worked");
         this.hoursWorked = hoursWorked;
+    }
+
+    private static void validateAmount(double value, String label) {
+        if (value < 0 || Double.isNaN(value) || Double.isInfinite(value)) {
+            throw new IllegalArgumentException(
+                    label + " must be a valid non-negative number.");
+        }
     }
 }
