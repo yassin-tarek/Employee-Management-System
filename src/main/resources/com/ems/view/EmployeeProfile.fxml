@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ems.controller.EmployeeProfileController"
+            fitToWidth="true" hbarPolicy="NEVER">
+
+    <stylesheets>
+        <URL value="@../css/EmployeeProfile.css" />
+    </stylesheets>
+
+    <VBox spacing="20">
+        <padding>
+            <Insets top="28" right="32" bottom="28" left="32" />
+        </padding>
+
+        <HBox alignment="CENTER_LEFT">
+            <Button text="←  Back to list" styleClass="secondary-button" onAction="#onBack" />
+        </HBox>
+
+        <Label fx:id="statusMessage" wrapText="true" maxWidth="Infinity" />
+
+        <!-- Shown only if no employee is selected -->
+        <Label fx:id="emptyState" text="No employee selected. Open one from the Employees list."
+               styleClass="placeholder-text" />
+
+        <VBox fx:id="profileContent" spacing="20">
+
+            <!-- Header card -->
+            <HBox styleClass="page-card, profile-header" spacing="24" alignment="CENTER_LEFT">
+                <StackPane fx:id="avatarHolder" minWidth="110" minHeight="110"
+                           prefWidth="110" prefHeight="110" maxWidth="110" maxHeight="110" />
+
+                <VBox spacing="8">
+                    <Label fx:id="nameLabel" styleClass="profile-name" />
+                    <Label fx:id="subtitleLabel" styleClass="profile-subtitle" />
+                    <HBox>
+                        <Label fx:id="typeBadge" styleClass="badge" />
+                    </HBox>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <HBox spacing="12" alignment="CENTER">
+                    <Button text="Edit" styleClass="primary-button" onAction="#onEdit" />
+                    <Button text="Delete" styleClass="danger-button" onAction="#onDelete" />
+                </HBox>
+            </HBox>
+
+            <HBox spacing="20" fillHeight="false">
+
+                <!-- Left column: personal + job -->
+                <VBox HBox.hgrow="ALWAYS" spacing="20">
+
+                    <VBox styleClass="page-card, info-card" spacing="18">
+                        <Label text="Personal Information" styleClass="section-title" />
+                        <GridPane hgap="16" vgap="18">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50" />
+                                <ColumnConstraints percentWidth="50" />
+                            </columnConstraints>
+
+                            <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <Label text="EMAIL" styleClass="info-label" />
+                                <Label fx:id="emailValue" styleClass="info-value" wrapText="true" />
+                            </VBox>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label text="PHONE" styleClass="info-label" />
+                                <Label fx:id="phoneValue" styleClass="info-value" />
+                            </VBox>
+                            <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                <Label text="AGE" styleClass="info-label" />
+                                <Label fx:id="ageValue" styleClass="info-value" />
+                            </VBox>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <Label text="EMPLOYEE ID" styleClass="info-label" />
+                                <Label fx:id="idValue" styleClass="info-value" />
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+
+                    <VBox styleClass="page-card, info-card" spacing="18">
+                        <Label text="Job Information" styleClass="section-title" />
+                        <GridPane hgap="16" vgap="18">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50" />
+                                <ColumnConstraints percentWidth="50" />
+                            </columnConstraints>
+
+                            <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <Label text="DEPARTMENT" styleClass="info-label" />
+                                <Label fx:id="departmentValue" styleClass="info-value" />
+                            </VBox>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <Label text="POSITION" styleClass="info-label" />
+                                <Label fx:id="positionValue" styleClass="info-value" />
+                            </VBox>
+                            <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                <Label text="HIRE DATE" styleClass="info-label" />
+                                <Label fx:id="hireDateValue" styleClass="info-value" />
+                            </VBox>
+                            <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <Label text="TIME WITH THE COMPANY" styleClass="info-label" />
+                                <Label fx:id="tenureValue" styleClass="info-value" />
+                            </VBox>
+                            <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                <Label text="EMPLOYMENT TYPE" styleClass="info-label" />
+                                <Label fx:id="typeValue" styleClass="info-value" />
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+                </VBox>
+
+                <!-- Right column: salary breakdown -->
+                <VBox styleClass="page-card, info-card" prefWidth="340" minWidth="340" maxWidth="340" spacing="16">
+                    <Label text="Salary" styleClass="section-title" />
+                    <VBox fx:id="salaryRows" spacing="12" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

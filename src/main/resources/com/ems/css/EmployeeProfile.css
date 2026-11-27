@@ -1,0 +1,68 @@
+/* EmployeeProfile.css - styles only the Employee Profile page uses */
+
+.profile-header {
+    -fx-padding: 28;
+}
+
+.profile-name {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.profile-subtitle {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 15px;
+}
+
+.info-card {
+    -fx-padding: 24;
+}
+
+.section-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.info-label {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.info-value {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 15px;
+}
+
+/* Salary breakdown */
+.salary-label {
+    -fx-text-fill: -text-secondary;
+}
+
+.salary-value {
+    -fx-text-fill: -text-primary;
+    -fx-font-weight: bold;
+}
+
+.divider {
+    -fx-background-color: -border;
+}
+
+.salary-total {
+    -fx-background-color: -purple-100;
+    -fx-background-radius: 12;
+    -fx-padding: 14 16 14 16;
+}
+
+.salary-total-label {
+    -fx-text-fill: -purple-900;
+    -fx-font-weight: bold;
+}
+
+.salary-total-value {
+    -fx-text-fill: -purple-900;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}

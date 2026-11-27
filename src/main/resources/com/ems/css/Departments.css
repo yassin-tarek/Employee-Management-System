@@ -1,0 +1,73 @@
+/* Departments.css - styles only the Departments page uses */
+
+.dept-card {
+    -fx-padding: 24;
+}
+
+.card-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+/* One row per department */
+.dept-row {
+    -fx-padding: 14 4 14 4;
+    -fx-border-color: transparent transparent -border transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.dept-icon {
+    -fx-background-color: -purple-100;
+    -fx-background-radius: 22;
+    -fx-text-fill: -purple-900;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+    -fx-min-width: 44;
+    -fx-min-height: 44;
+    -fx-pref-width: 44;
+    -fx-pref-height: 44;
+}
+
+.dept-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.dept-meta {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12px;
+}
+
+/* Smaller buttons used while renaming */
+.small-button {
+    -fx-padding: 8 16 8 16;
+}
+
+/* Row action buttons */
+.action-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
+}
+
+.action-edit {
+    -fx-text-fill: -purple-900;
+}
+
+.action-edit:hover {
+    -fx-background-color: -purple-100;
+}
+
+.action-delete {
+    -fx-text-fill: -danger;
+}
+
+.action-delete:hover {
+    -fx-background-color: #FEE2E2;
+}

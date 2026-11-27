@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ems.controller.DashboardController"
+            fitToWidth="true" hbarPolicy="NEVER">
+
+    <stylesheets>
+        <URL value="@../css/Dashboard.css" />
+    </stylesheets>
+
+    <VBox spacing="24">
+        <padding>
+            <Insets top="28" right="32" bottom="28" left="32" />
+        </padding>
+
+        <!-- Welcome row -->
+        <HBox alignment="CENTER_LEFT">
+            <VBox spacing="4">
+                <Label text="Welcome back, Admin" styleClass="dash-title" />
+                <Label fx:id="dateLabel" styleClass="dash-subtitle" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="+ Add Employee" styleClass="primary-button" onAction="#onAddEmployee" />
+        </HBox>
+
+        <!-- Summary cards -->
+        <GridPane hgap="20">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+            </columnConstraints>
+
+            <VBox styleClass="page-card, stat-card" spacing="6" GridPane.columnIndex="0">
+                <Label text="TOTAL EMPLOYEES" styleClass="stat-label" />
+                <Label fx:id="totalValue" styleClass="stat-value, stat-purple" />
+                <Label fx:id="totalSub" styleClass="stat-sub" />
+            </VBox>
+
+            <VBox styleClass="page-card, stat-card" spacing="6" GridPane.columnIndex="1">
+                <Label text="FULL-TIME" styleClass="stat-label" />
+                <Label fx:id="fullTimeValue" styleClass="stat-value, stat-purple" />
+                <Label fx:id="fullTimeSub" styleClass="stat-sub" />
+            </VBox>
+
+            <VBox styleClass="page-card, stat-card" spacing="6" GridPane.columnIndex="2">
+                <Label text="PART-TIME" styleClass="stat-label" />
+                <Label fx:id="partTimeValue" styleClass="stat-value, stat-blue" />
+                <Label fx:id="partTimeSub" styleClass="stat-sub" />
+            </VBox>
+
+            <VBox styleClass="page-card, stat-card" spacing="6" GridPane.columnIndex="3">
+                <Label text="TOTAL PAYROLL" styleClass="stat-label" />
+                <Label fx:id="payrollValue" styleClass="stat-value, stat-green" />
+                <Label fx:id="payrollSub" styleClass="stat-sub" />
+            </VBox>
+        </GridPane>
+
+        <!-- Departments + recent employees -->
+        <HBox spacing="20" fillHeight="false">
+
+            <VBox styleClass="page-card, dash-card" HBox.hgrow="ALWAYS" spacing="18">
+                <Label text="Employees by Department" styleClass="card-title" />
+                <VBox fx:id="departmentRows" spacing="16" />
+            </VBox>
+
+            <VBox styleClass="page-card, dash-card" prefWidth="420" minWidth="380" maxWidth="420" spacing="14">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Recently Added" styleClass="card-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button text="View all" styleClass="link-button" onAction="#onViewAll" />
+                </HBox>
+                <VBox fx:id="recentRows" spacing="4" />
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

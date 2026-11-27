@@ -1,0 +1,110 @@
+/* Dashboard.css - styles only the Dashboard page uses */
+
+.dash-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.dash-subtitle {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 14px;
+}
+
+/* Summary cards */
+.stat-card {
+    -fx-padding: 22;
+}
+
+.stat-label {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.stat-value {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
+.stat-purple {
+    -fx-text-fill: -purple-900;
+}
+
+.stat-blue {
+    -fx-text-fill: -info;
+}
+
+.stat-green {
+    -fx-text-fill: -success;
+}
+
+.stat-sub {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 13px;
+}
+
+/* Cards */
+.dash-card {
+    -fx-padding: 24;
+}
+
+.card-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -purple-900;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 4 8 4 8;
+}
+
+.link-button:hover {
+    -fx-underline: true;
+}
+
+/* Department bars */
+.dept-name {
+    -fx-text-fill: -text-primary;
+    -fx-font-weight: bold;
+}
+
+.dept-count {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 13px;
+}
+
+.bar-track {
+    -fx-background-color: -purple-100;
+    -fx-background-radius: 5;
+}
+
+.bar-fill {
+    -fx-background-color: -purple-900;
+    -fx-background-radius: 5;
+}
+
+/* Recently added list */
+.recent-row {
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.recent-row:hover {
+    -fx-background-color: -hover-background;
+}
+
+.recent-name {
+    -fx-text-fill: -text-primary;
+    -fx-font-weight: bold;
+}
+
+.recent-sub {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12px;
+}
