@@ -35,25 +35,28 @@ public class ShellController {
 
     // Called by Navigator every time a page is opened
     public void setContent(Node content, Page page) {
+        boolean editing = (page == Page.ADD_EMPLOYEE) && AppContext.isEditMode();
+
         contentArea.getChildren().setAll(content);
-        pageTitle.setText(page.getTitle());
-        highlight(navFor(page));
+        pageTitle.setText(editing ? "Edit Employee" : page.getTitle());
+        highlight(navFor(page, editing));
     }
 
-    private Button navFor(Page page) {
-    switch (page) {
-        case ADD_EMPLOYEE:
-            return addEmployeeNav;
-        case EMPLOYEE_LIST:
-        case EMPLOYEE_PROFILE:
-            return employeeListNav;
-        case DEPARTMENTS:
-            return departmentsNav;
-        case DASHBOARD:
-        default:
-            return dashboardNav;
+    private Button navFor(Page page, boolean editing) {
+        switch (page) {
+            case ADD_EMPLOYEE:
+                // The Edit form is reached from the employee list, so highlight "Employees"
+                return editing ? employeeListNav : addEmployeeNav;
+            case EMPLOYEE_LIST:
+            case EMPLOYEE_PROFILE:
+                return employeeListNav;
+            case DEPARTMENTS:
+                return departmentsNav;
+            case DASHBOARD:
+            default:
+                return dashboardNav;
+        }
     }
-}
 
     private void highlight(Button active) {
         for (Button b : navButtons) {

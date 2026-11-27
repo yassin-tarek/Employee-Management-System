@@ -1,105 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ems.controller.AddEmployeeController"
+            fitToWidth="true" hbarPolicy="NEVER">
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/27.0.1.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ems.controller.AddEmployeeController">
-   <center>
-      <HBox fx:id="chooseImageButton" prefHeight="700.0" prefWidth="1100.0" spacing="20.0" style="-fx-background-color: #eeffff;" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="CENTER" prefHeight="700.0" prefWidth="280.0" style="-fx-background-color: lightblue;">
-               <children>
-                  <Label text="Profile Picture">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="profileImage" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="Choose Image" />
-                        <Button fx:id="removeImageButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Remove" />
-                     </children>
-                  </HBox>
-               </children>
+    <stylesheets>
+        <URL value="@../css/AddEmployee.css" />
+    </stylesheets>
+
+    <VBox spacing="20">
+        <padding>
+            <Insets top="28" right="32" bottom="28" left="32" />
+        </padding>
+
+        <!-- Error / success message -->
+        <Label fx:id="formMessage" wrapText="true" maxWidth="Infinity" />
+
+        <HBox spacing="20" fillHeight="false">
+
+            <!-- ============ Profile picture ============ -->
+            <VBox styleClass="page-card, form-card" prefWidth="260" minWidth="260" maxWidth="260"
+                  spacing="16" alignment="TOP_CENTER">
+                <Label text="Profile Picture" styleClass="section-title" maxWidth="Infinity" />
+
+                <StackPane styleClass="avatar-large" minWidth="140" minHeight="140"
+                           prefWidth="140" prefHeight="140" maxWidth="140" maxHeight="140">
+                    <Label fx:id="avatarInitial" text="?" styleClass="avatar-initial" />
+                    <ImageView fx:id="profileImage" fitWidth="140" fitHeight="140" visible="false" />
+                </StackPane>
+
+                <Button fx:id="chooseImageButton" text="Choose Image" styleClass="secondary-button"
+                        maxWidth="Infinity" onAction="#onChooseImage" />
+                <Button fx:id="removeImageButton" text="Remove" styleClass="secondary-button"
+                        maxWidth="Infinity" onAction="#onRemoveImage" />
+
+                <Label text="PNG, JPG or GIF, up to 5 MB." styleClass="hint-label" wrapText="true" />
             </VBox>
-            <VBox prefHeight="800.0" prefWidth="700.0" style="-fx-background-color: #eeeeee;" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label text="Personal Information">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <GridPane hgap="15.0" prefHeight="569.0" prefWidth="734.0" vgap="12.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="192.5333251953125" minHeight="140.2666778564453" prefHeight="140.2666778564453" />
-                      <RowConstraints maxHeight="139.13332214355466" minHeight="10.0" prefHeight="88.0000030517578" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="148.39998474121091" minHeight="10.0" prefHeight="84.80000000000001" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="126.39999999999998" minHeight="10.0" prefHeight="126.39999999999998" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                           <children>
-                              <Label text="Full Name" />
-                              <TextField fx:id="nameField" prefHeight="350.0" prefWidth="40.0" promptText="Enter full name" />
-                           </children>
+
+            <!-- ============ Form sections ============ -->
+            <VBox HBox.hgrow="ALWAYS" spacing="20">
+
+                <!-- Personal information -->
+                <VBox styleClass="page-card, form-card" spacing="18">
+                    <Label text="Personal Information" styleClass="section-title" />
+                    <GridPane hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+
+                        <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Full Name" styleClass="field-label" />
+                            <TextField fx:id="nameField" promptText="e.g. Sara Ali" />
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1">
-                           <children>
-                              <Label text="Age" />
-                              <TextField fx:id="ageField" prefHeight="350.0" prefWidth="40.0" promptText="Enter full name" />
-                           </children>
+                        <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Age" styleClass="field-label" />
+                            <TextField fx:id="ageField" promptText="e.g. 28" />
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <children>
-                              <Label text="Phone" />
-                              <TextField fx:id="phoneField" prefHeight="350.0" prefWidth="40.0" promptText="Enter full name" />
-                           </children>
+                        <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="Email" styleClass="field-label" />
+                            <TextField fx:id="emailField" promptText="name@company.com" />
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="1">
-                           <children>
-                              <Label text="Email" />
-                              <TextField fx:id="emailField" prefHeight="350.0" prefWidth="40.0" promptText="Enter full name" />
-                           </children>
+                        <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Phone" styleClass="field-label" />
+                            <TextField fx:id="phoneField" promptText="e.g. +20 100 123 4567" />
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="2">
-                           <children>
-                              <Label text="Department" />
-                              <ComboBox fx:id="departmentComboBox" prefWidth="150.0" />
-                           </children>
+                    </GridPane>
+                </VBox>
+
+                <!-- Job information -->
+                <VBox styleClass="page-card, form-card" spacing="18">
+                    <Label text="Job Information" styleClass="section-title" />
+                    <GridPane hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+
+                        <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Employee ID" styleClass="field-label" />
+                            <TextField fx:id="employeeIdField" editable="false" focusTraversable="false"
+                                       styleClass="readonly-field" />
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <children>
-                              <Label text="Position" />
-                              <TextField fx:id="positionField" prefHeight="350.0" prefWidth="40.0" promptText="Enter full name" />
-                           </children>
+                        <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Department" styleClass="field-label" />
+                            <ComboBox fx:id="departmentCombo" promptText="Select department" maxWidth="Infinity" />
                         </VBox>
-                     </children>
-                  </GridPane>
-               </children>
+                        <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="Position" styleClass="field-label" />
+                            <TextField fx:id="positionField" promptText="e.g. Software Engineer" />
+                        </VBox>
+                        <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="Hire Date" styleClass="field-label" />
+                            <DatePicker fx:id="hireDatePicker" maxWidth="Infinity" />
+                        </VBox>
+                        <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label text="Employee Type" styleClass="field-label" />
+                            <ComboBox fx:id="typeCombo" maxWidth="Infinity" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
+
+                <!-- Salary information (changes with the employee type) -->
+                <VBox styleClass="page-card, form-card" spacing="18">
+                    <Label text="Salary Information" styleClass="section-title" />
+
+                    <GridPane fx:id="fullTimeGrid" hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+                        <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Monthly Salary" styleClass="field-label" />
+                            <TextField fx:id="salaryField" promptText="e.g. 8000" />
+                        </VBox>
+                    </GridPane>
+
+                    <GridPane fx:id="partTimeGrid" hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+                        <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Hourly Rate" styleClass="field-label" />
+                            <TextField fx:id="hourlyRateField" promptText="e.g. 50" />
+                        </VBox>
+                        <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Hours Worked" styleClass="field-label" />
+                            <TextField fx:id="hoursField" promptText="e.g. 80" />
+                        </VBox>
+                    </GridPane>
+
+                    <Label fx:id="salaryPreview" styleClass="salary-preview" />
+                </VBox>
             </VBox>
-         </children>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-      </HBox>
-   </center>
-</BorderPane>
+        </HBox>
+
+        <!-- Buttons -->
+        <HBox spacing="12" alignment="CENTER_RIGHT">
+            <Button text="Reset Form" styleClass="secondary-button" onAction="#onReset" />
+            <Button text="Cancel" styleClass="secondary-button" onAction="#onCancel" />
+            <Button fx:id="submitButton" text="Add Employee" styleClass="primary-button" onAction="#onSubmit" />
+        </HBox>
+    </VBox>
+</ScrollPane>

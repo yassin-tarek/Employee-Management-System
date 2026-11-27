@@ -44,6 +44,7 @@
     -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     -fx-font-size: 14px;
     -fx-background-color: -background;
+    -fx-accent: -purple-900;
 }
 
 /* ---------- logo badge (used in sidebar and login) ---------- */
@@ -262,4 +263,236 @@
 
 .danger-button:hover {
     -fx-opacity: 0.88;
+}
+
+/* ---------- scroll pane (pages that scroll) ---------- */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+/* ---------- combo box & date picker ---------- */
+
+.combo-box,
+.date-picker {
+    -fx-background-color: -input-background;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-border-color: -border;
+    -fx-border-radius: 10;
+    -fx-padding: 4 4 4 6;
+    -fx-cursor: hand;
+}
+
+.combo-box:focused,
+.date-picker:focused {
+    -fx-background-color: -surface;
+    -fx-border-color: -purple-900;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 6 8 6 8;
+}
+
+.combo-box .arrow-button,
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.combo-box .arrow-button .arrow,
+.date-picker .arrow-button .arrow {
+    -fx-background-color: -text-secondary;
+}
+
+.date-picker .text-field,
+.date-picker .text-field:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 6 8 6 8;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -surface;
+    -fx-background-radius: 10;
+    -fx-border-color: -border-purple;
+    -fx-border-radius: 10;
+    -fx-padding: 4;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-radius: 8;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 8 12 8 12;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    -fx-background-color: -hover-background;
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: -selected-menu;
+    -fx-text-fill: -purple-900;
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: -purple-900;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: -hover-background;
+}
+
+/* ---------- validation & messages ---------- */
+
+.text-field.invalid,
+.password-field.invalid,
+.combo-box.invalid,
+.date-picker.invalid {
+    -fx-border-color: -danger;
+}
+
+.banner-error {
+    -fx-background-color: #FEE2E2;
+    -fx-background-radius: 10;
+    -fx-border-color: #FECACA;
+    -fx-border-radius: 10;
+    -fx-text-fill: -danger;
+    -fx-padding: 12 16 12 16;
+}
+
+.banner-success {
+    -fx-background-color: #DCFCE7;
+    -fx-background-radius: 10;
+    -fx-border-color: #BBF7D0;
+    -fx-border-radius: 10;
+    -fx-text-fill: -success;
+    -fx-padding: 12 16 12 16;
+}
+
+/* ---------- table view ---------- */
+
+.table-view {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -surface-secondary;
+    -fx-background-radius: 16 16 0 0;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 46;
+    -fx-border-color: transparent transparent -border transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 0 4;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: -surface;
+    -fx-background-insets: 0;
+    -fx-cell-size: 64;
+    -fx-border-color: transparent transparent -border transparent;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: -hover-background;
+}
+
+.table-view .table-row-cell:filled:selected,
+.table-view:focused .table-row-cell:filled:selected {
+    -fx-background-color: -selected-menu;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: -text-primary;
+    -fx-alignment: center-left;
+    -fx-padding: 0 12 0 12;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-drag-header {
+    -fx-background-color: -surface-secondary;
+}
+
+/* ---------- small round avatar (photo or initial) ---------- */
+
+.avatar-circle {
+    -fx-background-color: -purple-100;
+    -fx-background-radius: 100;
+}
+
+.avatar-circle-text {
+    -fx-text-fill: -purple-900;
+    -fx-font-weight: bold;
+}
+
+/* ---------- badges ---------- */
+
+.badge {
+    -fx-background-radius: 20;
+    -fx-padding: 4 12 4 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.badge-fulltime {
+    -fx-background-color: -purple-100;
+    -fx-text-fill: -purple-900;
+}
+
+.badge-parttime {
+    -fx-background-color: #DBEAFE;
+    -fx-text-fill: -info;
+}
+
+/* ---------- confirmation dialogs ---------- */
+
+.dialog-pane {
+    -fx-background-color: -surface;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.dialog-pane > .header-panel {
+    -fx-background-color: -surface;
+    -fx-padding: 24 24 4 24;
+}
+
+.dialog-pane > .header-panel .label {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane > .content.label {
+    -fx-text-fill: -text-secondary;
+    -fx-padding: 8 24 20 24;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-padding: 0 16 16 16;
 }

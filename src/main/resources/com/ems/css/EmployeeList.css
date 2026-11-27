@@ -1,0 +1,66 @@
+/* EmployeeList.css - styles only the Employees page uses */
+
+.toolbar {
+    -fx-padding: 16 20 16 20;
+}
+
+.table-card {
+    -fx-padding: 0;
+}
+
+.cell-name {
+    -fx-text-fill: -text-primary;
+    -fx-font-weight: bold;
+}
+
+.cell-sub {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12px;
+}
+
+.cell-salary {
+    -fx-text-fill: -text-primary;
+    -fx-font-weight: bold;
+}
+
+.count-label {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 13px;
+    -fx-padding: 12 20 12 20;
+    -fx-border-color: -border transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* Row action buttons */
+.action-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
+}
+
+.action-view {
+    -fx-text-fill: -info;
+}
+
+.action-view:hover {
+    -fx-background-color: #DBEAFE;
+}
+
+.action-edit {
+    -fx-text-fill: -purple-900;
+}
+
+.action-edit:hover {
+    -fx-background-color: -purple-100;
+}
+
+.action-delete {
+    -fx-text-fill: -danger;
+}
+
+.action-delete:hover {
+    -fx-background-color: #FEE2E2;
+}

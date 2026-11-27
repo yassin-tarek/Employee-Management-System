@@ -1,0 +1,48 @@
+/* AddEmployee.css - styles only the Add / Edit Employee page uses */
+
+.form-card {
+    -fx-padding: 24;
+}
+
+.section-title {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.hint-label {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
+}
+
+/* Round profile picture area */
+.avatar-large {
+    -fx-background-color: -purple-100;
+    -fx-background-radius: 70;
+    -fx-border-color: -border-purple;
+    -fx-border-radius: 70;
+    -fx-border-width: 2;
+}
+
+.avatar-initial {
+    -fx-text-fill: -purple-900;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+/* Employee ID is generated automatically, so it looks "locked" */
+.readonly-field,
+.readonly-field:focused {
+    -fx-background-color: -surface-secondary;
+    -fx-text-fill: -text-muted;
+    -fx-border-color: -border;
+}
+
+.salary-preview {
+    -fx-background-color: -purple-100;
+    -fx-background-radius: 10;
+    -fx-text-fill: -purple-900;
+    -fx-font-weight: bold;
+    -fx-padding: 10 14 10 14;
+}
