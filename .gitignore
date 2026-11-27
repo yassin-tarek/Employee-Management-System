@@ -23,3 +23,6 @@ Thumbs.db
 
 # Runtime data files (remove this line if you want to commit sample data)
 data/
+
+# Application data
+data/
